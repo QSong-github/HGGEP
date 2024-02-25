@@ -8,7 +8,12 @@ Spatial transcriptomics reveals the spatial distribution of genes in complex tis
 
 ![(Variational) gcn](Figures/workflow.png)
 
+## Installation
 
+Download HGGEP:
+```
+git clone https://github.com/QSong-github/HGGEP
+```
 
 ## System environment
 Required package:
@@ -17,7 +22,6 @@ Required package:
 - scanpy >= 1.8
 - python >= 3.7
 - torch_geometric
-
 
 
 # HGGEP pipeline
@@ -44,5 +48,17 @@ Run the command line `git clone https://github.com/almaan/her2st.git` in the dir
 
 # Train models
 
-Trained models of Hist2ST on HER2+ and cSCC datasets can be found at [synapse](https://www.synapse.org/#!Synapse:syn29738084/files/)
+```
+# go to /path/to/HGGEP
+# for HER2+ dataset
+python HIST2ST_train.py --data "her2st"
+
+# for cSCC dataset
+python HIST2ST_train.py --data cscc
+
+# for 10x Visium dataset
+python3 processing.py --dataset 10x
+```
+
+<!-- Trained models of Hist2ST on HER2+ and cSCC datasets can be found at [synapse](https://www.synapse.org/#!Synapse:syn29738084/files/) -->
 
