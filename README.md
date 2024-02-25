@@ -55,9 +55,6 @@ python HIST2ST_train.py --data "her2st"
 
 # for cSCC dataset
 python HIST2ST_train.py --data cscc
-
-# for 10x Visium dataset
-python3 processing.py --dataset 10x
 ```
 
 <!-- Trained models of Hist2ST on HER2+ and cSCC datasets can be found at [synapse](https://www.synapse.org/#!Synapse:syn29738084/files/) -->
