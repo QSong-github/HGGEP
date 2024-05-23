@@ -7,8 +7,8 @@ import argparse
 import pickle as pk
 import pytorch_lightning as pl
 from utils import *
-# from HIST2ST_Baseline import *
-from HGGEP_HGNN import *
+
+from HGGEP import *
 from predict import *
 from torch.utils.data import DataLoader
 
