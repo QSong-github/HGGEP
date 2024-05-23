@@ -379,21 +379,17 @@ def build_sparse_hypergraph(features, num_neighbors):
     return data
 
 def normalize_tensor(tensor):
-    # 直接使用NumPy的归一化函数
     normalized_tensor = torch.div(tensor, tensor.sum())
     
     return normalized_tensor
 
 def build_adj_hypergraph(features, adjacency_matrix, num_neighbors):
-    # 假设 features 是一个二维张量 [n, m]0
     n, m = features.size()
 
-    # 初始化边和边权重
     hypergraph_edges = []
     edge_weights = []
 
     for i in range(n):
-        # 计算当前节点与所有其他节点的邻居节点和欧氏距离，并归一化
         # Neighbor_distances = adjacency_matrix[i, :]
         Neighbor_distances = normalize_tensor(adjacency_matrix[i, :])
         Eud_distances = normalize_tensor(euclidean_distance(features[i, :], features))
@@ -402,51 +398,39 @@ def build_adj_hypergraph(features, adjacency_matrix, num_neighbors):
         distances = Neighbor_distances + Eud_distances
         # distances = Neighbor_distances
 
-        # 获取最靠近的前 N 个节点的索引
         _, nearest_neighbors = torch.topk(distances, k=num_neighbors + 1)
         # exit()
 
-        # 添加超图边和边权重
         for neighbor in nearest_neighbors:
             hypergraph_edges.append([i, neighbor])
             edge_weights.append(distances[neighbor])
 
-    # 转换为 PyTorch 张量
     hypergraph_edges = torch.tensor(hypergraph_edges, dtype=torch.long).t()
     edge_weights = torch.tensor(edge_weights, dtype=torch.float)
 
-    # 构建 PyTorch Geometric 的 Data 对象
     data = Data(x=features, edge_index=hypergraph_edges, edge_attr=edge_weights, y=None)
 
     return data
 
 def build_hypergraph_from_adjacency(features, adjacency_matrix, threshold=0.0):
-    # 假设 adjacency_matrix 是一个二维张量 [n, n]
     n = adjacency_matrix.size(0)
 
-    # 获取超图节点的索引
     hypergraph_nodes = torch.arange(n).view(1, -1)
 
-    # 初始化边和边权重
     hypergraph_edges = []
     edge_weights = []
 
     for i in range(n):
         for j in range(n):
-            # 如果邻接矩阵中的元素大于阈值，表示节点 i 与节点 j 有连接
             if adjacency_matrix[i, j] > threshold:
-                 # 检查要连接的节点是否已经存在于超图节点中
                 if i not in hypergraph_nodes or j not in hypergraph_nodes:
                     continue
                 hypergraph_edges.append([i, j])
-                # 可以使用邻接矩阵的值作为边的权重
                 edge_weights.append(adjacency_matrix[i, j])
 
-    # 转换为 PyTorch 张量
     hypergraph_edges = torch.tensor(hypergraph_edges, dtype=torch.long).t()
     edge_weights = torch.tensor(edge_weights, dtype=torch.float)
 
-    # 构建 PyTorch Geometric 的 Data 对象
     data = Data(x=features, edge_index=hypergraph_edges, edge_attr=edge_weights, y=None)
 
     return data
@@ -459,7 +443,6 @@ class HypergraphNeuralNetwork(torch.nn.Module):
         self.norm = nn.LayerNorm(hidden_dim)
         
     def forward(self, data):
-        # 进行超图卷积操作
         x = self.conv1(data.x, data.edge_index, data.edge_attr)
         x1 = F.dropout(self.norm(torch.relu(x)), 0.5)
         x2 = self.conv2(x1, data.edge_index, data.edge_attr)
