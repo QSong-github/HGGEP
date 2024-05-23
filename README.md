@@ -51,11 +51,10 @@ Run the command line `git clone https://github.com/almaan/her2st.git` in the dir
 ```
 # go to /path/to/HGGEP
 # for HER2+ dataset
-python HIST2ST_train.py --data "her2st"
+python HGGEP_train.py --data "her2st"
 
 # for cSCC dataset
-python HIST2ST_train.py --data "cscc"
+python HGGEP_train.py --data "cscc"
 ```
 
-<!-- Trained models of Hist2ST on HER2+ and cSCC datasets can be found at [synapse](https://www.synapse.org/#!Synapse:syn29738084/files/) -->
 
