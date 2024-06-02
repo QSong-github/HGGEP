@@ -60,7 +60,6 @@ def leiden_cluster(adata, label, resolution=1.0):
     # Compute neighborhood graph
     sc.pp.neighbors(tmp)
     
-    # 使用 Scanpy 内置的 Leiden clustering
     print("Leiden")
     sc.tl.leiden(tmp, key_added='leiden', resolution=resolution)
     p = tmp.obs['leiden'].astype(str)
@@ -71,19 +70,6 @@ def leiden_cluster(adata, label, resolution=1.0):
     adata.obs['x'] = lbl
     
     return p, round(ari_score(p, l), 3)
-
-# def cluster(adata,label):
-#     idx=label!='undetermined'
-#     tmp=adata[idx]
-#     l=label[idx]
-#     sc.pp.pca(tmp)
-#     sc.tl.tsne(tmp)
-#     kmeans = KMeans(n_clusters=len(set(l)), init="k-means++", random_state=0).fit(tmp.obsm['X_pca'])
-#     p=kmeans.labels_.astype(str)
-#     lbl=np.full(len(adata),str(len(set(l))))
-#     lbl[idx]=p
-#     adata.obs['x']=lbl
-#     return p,round(ari_score(p,l),3)
 
 def cluster(adata, label, method='kmeans', resolution=1.0):
     if method == 'leiden':
@@ -108,9 +94,7 @@ def cluster(adata, label, method='kmeans', resolution=1.0):
         raise ValueError("Unsupported clustering method. Supported methods: 'leiden', 'kmeans'")
 
 def replace_nans_infs_numpy(array1, array2):
-    # 将数组1中的NaN和inf替换为0
     array1 = np.nan_to_num(array1)
-    # 将数组2中的NaN和inf替换为0
     array2 = np.nan_to_num(array2)
     return array1, array2
 
