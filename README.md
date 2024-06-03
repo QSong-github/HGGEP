@@ -57,4 +57,7 @@ python HGGEP_train.py --data "her2st"
 python HGGEP_train.py --data "cscc"
 ```
 
+# Test models
+
+See [test_model.ipynb](test_model.ipynb)
 
