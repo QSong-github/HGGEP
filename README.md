@@ -45,6 +45,9 @@ Run the command line `git clone https://github.com/almaan/her2st.git` in the dir
  -  human HER2-positive breast tumor ST data https://github.com/almaan/her2st/.
  -  human cutaneous squamous cell carcinoma 10x Visium data (GSE144240).
 
+# Trained models
+
+All Trained models of our method on HER2+ and cSCC datasets can be found at [synapse](https://www.synapse.org/Synapse:syn60239950/files/) 
 
 # Train models
 
