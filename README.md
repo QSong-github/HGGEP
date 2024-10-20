@@ -1,10 +1,8 @@
-# Gene Expression Prediction from Histology Images via Hypergraph Neural Networks
+# Gene Expression Prediction from Histology Images via Hypergraph Neural Networks [Briefings in Bioinformatics](https://academic.oup.com/bib/article/25/6/bbae500/7821151)
 ### 
-
 
 Spatial transcriptomics reveals the spatial distribution of genes in complex tissues, providing crucial insights into biological processes, disease mechanisms, and drug development. The prediction of gene expression based on cost-effective histology images is a promising yet challenging field of research. Existing methods for gene prediction from histology images exhibit two major limitations. First, they ignore the intricate relationship between cell morphological information and gene expression. Second, these methods do not fully utilize the different latent stages of features extracted from the images. To address these limitations, this paper proposes a novel hypergraph neural network model, HGGEP, to predict gene expressions from histology images. HGGEP includes a gradient enhancement module to enhance the model’s perception of cell morphological information. A lightweight backbone network extracts multiple latent stage features from the image, followed by attention mechanisms to refine the representation of features at each latent stage and capture their relations with nearby features. To explore higher-order associations among multiple latent stage features, we stack them and feed into the hypergraph to establish associations among features at different scales. Experimental results on multiple datasets from disease samples including cancers and tumor disease, demonstrate the superior performance of our HGGEP model than existing methods.
        
-
 
 ![(Variational) gcn](Figures/workflow.png)
 
@@ -63,4 +61,22 @@ python HGGEP_train.py --data "cscc"
 # Test models
 
 See [test_model.ipynb](test_model.ipynb)
+
+
+# Reference
+If you find this project is useful for your research, please cite:
+```
+
+@article{li2024gene,
+  title={Gene expression prediction from histology images via hypergraph neural networks},
+  author={Li, Bo and Zhang, Yong and Wang, Qing and Zhang, Chengyang and Li, Mengran and Wang, Guangyu and Song, Qianqian},
+  journal={Briefings in Bioinformatics},
+  volume={25},
+  number={6},
+  pages={bbae500},
+  year={2024},
+  publisher={Oxford University Press}
+}
+
+```
 
