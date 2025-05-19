@@ -314,13 +314,13 @@ class HGGEP(pl.LightningModule):
         loss = F.mse_loss(pred.squeeze(0), exp.squeeze(0))
         # self.log('valid_loss', loss, on_epoch=True, prog_bar=True, logger=True)
 
-        pred = pred.squeeze(0).cpu().numpy().T
-        exp = exp.squeeze(0).cpu().numpy().T
+        # pred = pred.squeeze(0).cpu().numpy().T
+        # exp = exp.squeeze(0).cpu().numpy().T
 
-        r = []
-        for g in range(self.n_genes):
-            r.append(pearsonr(pred[g], exp[g])[0])
-        R = torch.Tensor(r).mean()
+        # r = []
+        # for g in range(self.n_genes):
+        #     r.append(pearsonr(pred[g], exp[g])[0])
+        # R = torch.Tensor(r).mean()
         # self.log('R', R, on_epoch=True, prog_bar=True, logger=True)
         return loss
 
